@@ -2,3 +2,6 @@
 appengine-generated/
 target/
 .vscode/settings.json
+.classpath
+.project
+.settings
