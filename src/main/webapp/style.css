@@ -1,4 +1,4 @@
-#content {
+/*#content {
   margin-left: auto;
   margin-right: auto;
   width: 650px;
@@ -6,4 +6,54 @@
 
 #greeting-container {
   margin-top: 20px;
+}
+*/
+* {
+    margin: 0;
+    padding: 0;
+}
+.wrapper{
+    width: 1170 px;
+    margin: auto;
+}
+header{
+    background: linear-gradient(rgba(0, 0, 0, 0.116),rgba(0,0,0,0.116)), url("images/homepage.jpeg");
+    height: 100vh;
+    -webkit-background-size: cover;
+    background-size: center center;
+    position: relative;
+}
+.nav-area{
+    float: end;
+    list-style: none;
+    margin-top: 30px;
+    margin-right: 600px;
+}
+.nav-area li{
+    padding-left: 30px;
+    padding-right: 30px;
+    display: inline-block;
+}
+.nav-area li a{
+    color: #333;
+    text-decoration: none;
+    font-family: poppins;
+    font-size: 20px;
+}
+.nav-area li a:hover{
+    background-color: #333;
+    color: #fff;
+}
+.logo img{
+    width: 100px;
+    float: left;
+    height: auto;
+}
+.welcome-text{
+    position: absolute;
+    width: 600px;
+    height: 300px;
+    margin: 20% 30%;
+    text-align: center;
+    
 }
