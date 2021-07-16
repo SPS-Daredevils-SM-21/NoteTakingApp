@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoteTaking App</title>
+    <!--    Style   -->
+    <link rel="stylesheet" href="CSS/main.css">
+    <!--    Fonts   -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet"> 
+    <!--    Scripts -->
+    <script src="Scripts/LoadHeader.js" type="text/javascript" defer></script>
+    <script src="Scripts/LoadFilters.js" type="text/javascript" defer></script>
+    <script src="Scripts/LoadNotes.js" type="text/javascript" defer></script>
+</head>
+<body id="root">
+    <!-- // Intro -->
+    <header id="Header" class="DontMove"></header>
+    
+    <main class="container" id="main"> 
+        <div class="DontMove" id="FiltersDiv"></div>
+        <div id="Notes"></div>
+
+        <!--    Articles: Dinamic   -->
+        <article id="RelevantContent"></article>
+    </main>
+</body>
+</html>
