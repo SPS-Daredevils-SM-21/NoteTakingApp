@@ -21,29 +21,30 @@ public class LoginCallbackServlet extends AbstractAuthorizationCodeCallbackServl
   }
 
   @Override
-  protected String getRedirectUri(HttpServletRequest request) {
-    GenericUrl url = new GenericUrl(request.getRequestURL().toString());
-    url.setRawPath("/login-callback");
-    System.out.println(url);
-    //return url.build();
-    
-    return "https://8080-cs-1096873526294-default.cs-us-central1-pits.cloudshell.dev/login-callback";
-  }
+  protected String getRedirectUri(final HttpServletRequest request) {
+        final GenericUrl url = new GenericUrl(request.getRequestURL().toString());
+        url.setRawPath("/login-callback");
+        System.out.println(url);
+        // return url.build();
 
-  @Override
-  protected String getUserId(HttpServletRequest request) {
-    return request.getSession().getId();
-  }
+        // The return is hard-coded until we find the best solution cloudshell dev 
+        return "https://8080-cs-1096873526294-default.cs-us-central1-pits.cloudshell.dev/login-callback";
+    }
 
-  @Override
-  protected void onSuccess(HttpServletRequest request, HttpServletResponse response, Credential credential)
-      throws IOException {
-    response.sendRedirect("/profile");
-  }
+    @Override
+    protected String getUserId(final HttpServletRequest request) {
+        return request.getSession().getId();
+    }
 
-  @Override
-  protected void onError(
-      HttpServletRequest request, HttpServletResponse response, AuthorizationCodeResponseUrl errorResponse)
+    @Override
+    protected void onSuccess(final HttpServletRequest request, final HttpServletResponse response,
+            final Credential credential) throws IOException {
+        response.sendRedirect("/profile");
+    }
+
+    @Override
+    protected void onError(final HttpServletRequest request, final HttpServletResponse response,
+            final AuthorizationCodeResponseUrl errorResponse)
       throws IOException {
     response.getWriter().print("Login cancelled.");
   }
