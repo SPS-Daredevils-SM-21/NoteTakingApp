@@ -20,6 +20,7 @@ import com.google.cloud.datastore.Entity;
 import com.google.cloud.datastore.Query;
 import com.google.cloud.datastore.QueryResults;
 import com.google.cloud.datastore.StructuredQuery.OrderBy;
+import com.google.cloud.datastore.StructuredQuery.PropertyFilter;
 import com.google.gson.Gson;
 import com.google.sps.data.Note;
 import java.io.IOException;
@@ -36,9 +37,13 @@ public class ListNotesServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    long userId = 123456;
     Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
     Query<Entity> query =
-        Query.newEntityQueryBuilder().setKind("Note").build();
+        Query.newEntityQueryBuilder().setKind("Note")
+        .setFilter(PropertyFilter.eq("userID", 123456))
+        //.setOrderBy(OrderBy.asc("timestamp")) need to create a Index to work
+        .build();
     QueryResults<Entity> results = datastore.run(query);
 
     List<Note> notes = new ArrayList<>();
@@ -48,8 +53,9 @@ public class ListNotesServlet extends HttpServlet {
       long id = entity.getKey().getId();
       String title = entity.getString("title");
       String text = entity.getString("text");
+      long timeStamp = entity.getLong("timestamp");
 
-      Note note = new Note(id, title, text);
+      Note note = new Note(id, title, text, userId, timeStamp);
       notes.add(note);
     }
 
