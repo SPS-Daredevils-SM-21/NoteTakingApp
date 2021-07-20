@@ -1,4 +1,4 @@
-// Copyright 2020 Google LLC
+// Copyright 2019 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,17 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Adds a random greeting to the page.
- */
-function addRandomGreeting() {
-  const greetings =
-      ['Hello world!', 'Salam', 'Adaab', 'Bonjour le monde!', 'Neehow', 'Hola'];
+package com.google.sps.data;
 
-  // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
+/** An item on a todo list. */
+public final class Note {
 
-  // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
+  private final long id;
+  private String title;
+  private String text;
+
+  public Note(long id, String title, String text) {
+    this.id = id;
+    this.title = title;
+    this.text = text;
+  }
 }
