@@ -1,0 +1,3 @@
+env_variables:
+  OAUTH_CLIENT_ID: id //please add your own
+  OAUTH_CLIENT_SECRET: secret// please add your own
