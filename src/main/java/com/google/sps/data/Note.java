@@ -18,12 +18,16 @@ package com.google.sps.data;
 public final class Note {
 
   private final long id;
-  private String title;
-  private String text;
+  private final String title;
+  private final String text;
+  private final long userId;
+  private final long timeStamp;
 
-  public Note(long id, String title, String text) {
+  public Note(long id, String title, String text, long userId, long timeStamp) {
     this.id = id;
     this.title = title;
     this.text = text;
+    this.userId = userId;
+    this.timeStamp = timeStamp;
   }
 }
