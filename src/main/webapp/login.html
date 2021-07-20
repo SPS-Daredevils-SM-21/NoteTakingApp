@@ -1,22 +1,61 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Registration-- Create Account.</title>
-    <script src="script.js"></script>
-  </head>
-  <body>
-      <div class="login-form">
-          <form action="example.html"    method="POST">
-              <input type="text"      name="username" placeholder="Enter your username/ email" required>
-            
-              <input type="password"  name="psword" placeholder="Enter password" required><br>
-              
-              <input  type="hidden"   name="version" value="1.0">
-              <input type="submit" name="login" value="Login">
-          </form>
-          <p>Do not have an account yet!? <a href="signup.html">Sign up!</a></p>
-      </div>
-  </body>
-</html>
+    <head>
+        <title>Login And Registration Form</title>
+        <link rel = "stylesheet" href = "styles.css">
+    </head>
+    <body>
+        <div class = "hero">
+            <div class = "form-box">
+                <div class = "button-box">
+                    <div id = "btn"></div>
+                    <button type="button" class = "toggle-btn" onclick="login()">Login </button>
+                    <button type= "button" class = "toggle-btn" onclick="register()">Register</button>
+                </div>
+                 <div class = "social-icons">
+                <img src = "images/fb.png">
+                <img src = "images/tw.png">
+                <img src = "images/g.png">
+            </div>
 
+            <form id = "login" class = "input-group">
+            <input type = "text" class="input-field" placeholder="UserId" required>
+            <input type = "text" class="input-field" placeholder="Enter Password" required>
+            <input type = "checkbox" class="checkbox"> <span>Remember Password</span>
+            <button type="submit" class="submit-btn">Login</button>
+            </form>
+
+            <form id = "register" class = "input-group">
+                <input type = "text" class="input-field" placeholder="User Id" required>
+                <input type = "email" class="input-field" placeholder="Email Id" required>
+                <input type = "text" class="input-field" placeholder="Enter Password" required>
+                <input type = "checkbox" class="checkbox"> <span>I agree to the terms & conditions</span>
+                <button type="submit" class="submit-btn">Register</button>
+            </form>
+
+            </div>                
+           
+        </div>
+        
+        <script>
+        var x = document.getElementById("login");
+        var y = document.getElementById("register");
+        var z = document.getElementById("btn");
+
+        function register(){
+            x.style.left = "-400px";
+            y.style.left = "50px";
+            z.style.left = "110px";
+        }
+
+        function login(){
+            x.style.left = "50px";
+            y.style.left = "450px";
+            z.style.left = "0";
+        }
+
+
+        </script>
+            
+    </body>
+    </html>
