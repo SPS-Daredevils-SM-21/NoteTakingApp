@@ -36,6 +36,8 @@ public class NewNoteServlet extends HttpServlet {
     // Sanitize user input to remove HTML tags and JavaScript.
     String title = Jsoup.clean(request.getParameter("Name"), Whitelist.none());
     String text = Jsoup.clean(request.getParameter("Text"), Whitelist.none());
+    long userId = 123456;
+    long timestamp = System.currentTimeMillis();
 
     Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
     KeyFactory keyFactory = datastore.newKeyFactory().setKind("Note");
@@ -43,6 +45,8 @@ public class NewNoteServlet extends HttpServlet {
         Entity.newBuilder(keyFactory.newKey())
             .set("title", title)
             .set("text", text)
+            .set("userID", userId)
+            .set("timestamp", timestamp)
             .build();
     datastore.put(taskEntity);
 
