@@ -8,7 +8,11 @@ const LOGOUT_SVG =
     <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
     <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
 </svg>`;
-const USER_NAME = "Username";
+
+
+
+
+let USER_NAME = "Username";
 
 function LoadHeader(){
     let headerDiv = document.createElement("div");
@@ -25,7 +29,7 @@ function LoadHeader(){
     userIcon.classList.add("UserIcon");
     let dropdown = document.createElement("a");
     dropdown.classList.add("OptionMenu");
-    dropdown.href = "Login.html";
+    dropdown.href = "/logout";
     let option = document.createElement("div");
     let logout = document.createElement("span");
     logout.innerHTML = "Logout";
@@ -38,6 +42,7 @@ function LoadHeader(){
     userInfo.classList.add("UserInfo");
     let userName = document.createElement("span");
     userName.classList.add("UserName");
+    
     userName.innerHTML = USER_NAME;
     userInfo.appendChild(userName);
     userDiv.appendChild(userIcon);
@@ -49,4 +54,13 @@ function LoadHeader(){
     header.appendChild(headerDiv);
 }
 
-LoadHeader();
+function GetUserinfo (){
+    fetch('/profile').then(response => response.text()).then((info) => {
+        USER_NAME = info;
+	  LoadHeader();
+    });
+ 
+}
+
+
+GetUserinfo();
