@@ -42,8 +42,14 @@ function getNoteInfo(note){
     textElement.classList.add("Message");
     textElement.innerHTML = "<span>Text: </span>" + note.text;
 
+    let dateElement = document.createElement("p");
+    dateElement.classList.add("Atribute");
+    dateElement.innerHTML = "<span>Date: </span>" + new Date(note.timeStamp);
+    console.log(Intl.DateTimeFormat().);
+
     noteDiv.appendChild(nameElement);
     noteDiv.appendChild(textElement);
+    noteDiv.appendChild(dateElement);
 
     return noteDiv;
 }
