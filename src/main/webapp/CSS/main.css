@@ -312,6 +312,10 @@ form label{
   fill: white;
 }
 
+.ExpandCase svg:hover path{
+  fill: var(--Magenta1)
+}
+
 .Atribute {
   height: 1em;
   color: white;
@@ -336,4 +340,14 @@ form label{
   height: auto;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.DeleteNote{
+  padding-top: 15px;
+  background-color: transparent;
+  border: none;
+}
+
+.DeleteNote svg:hover path{
+  fill: red;
 }

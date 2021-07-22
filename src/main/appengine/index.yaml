@@ -1,0 +1,12 @@
+indexes:
+
+- kind: Note
+  properties:
+  - name: userID
+  - name: timestamp
+    direction: desc
+
+- kind: Note
+  properties:
+  - name: userID
+  - name: timestamp
