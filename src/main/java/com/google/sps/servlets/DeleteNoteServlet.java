@@ -16,40 +16,24 @@ package com.google.sps.servlets;
 
 import com.google.cloud.datastore.Datastore;
 import com.google.cloud.datastore.DatastoreOptions;
-import com.google.cloud.datastore.Entity;
-import com.google.cloud.datastore.FullEntity;
+import com.google.cloud.datastore.Key;
 import com.google.cloud.datastore.KeyFactory;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.jsoup.Jsoup;
-import org.jsoup.safety.Whitelist;
 
-/** Servlet responsible for creating new tasks. */
-@WebServlet("/Create")
-public class NewNoteServlet extends HttpServlet {
+/** Servlet responsible for deleting tasks. */
+@WebServlet("/delete-note")
+public class DeleteNoteServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Sanitize user input to remove HTML tags and JavaScript.
-    String title = Jsoup.clean(request.getParameter("Name"), Whitelist.none());
-    String text = Jsoup.clean(request.getParameter("Text"), Whitelist.none());
-    long userId = 123456;
-    long timestamp = System.currentTimeMillis();
-
+    long id = Long.parseLong(request.getParameter("id"));
     Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
     KeyFactory keyFactory = datastore.newKeyFactory().setKind("Note");
-    FullEntity taskEntity =
-        Entity.newBuilder(keyFactory.newKey())
-            .set("title", title)
-            .set("text", text)
-            .set("userID", userId)
-            .set("timestamp", timestamp)
-            .build();
-    datastore.put(taskEntity);
-
-    response.sendRedirect("/Notes.html");
+    Key taskEntityKey = keyFactory.newKey(id);
+    datastore.delete(taskEntityKey);
   }
 }
