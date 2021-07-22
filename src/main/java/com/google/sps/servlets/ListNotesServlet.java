@@ -42,7 +42,7 @@ public class ListNotesServlet extends HttpServlet {
     Query<Entity> query =
         Query.newEntityQueryBuilder().setKind("Note")
         .setFilter(PropertyFilter.eq("userID", 123456))
-        //.setOrderBy(OrderBy.asc("timestamp")) //need to create a Index to work
+        .setOrderBy(OrderBy.desc("timestamp")) //need to create a Index to work
         .build();
     QueryResults<Entity> results = datastore.run(query);
 
