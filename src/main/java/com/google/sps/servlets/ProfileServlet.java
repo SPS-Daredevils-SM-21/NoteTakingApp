@@ -21,12 +21,9 @@ public class ProfileServlet extends HttpServlet {
     String sessionId = request.getSession().getId();
     boolean isUserLoggedIn =
         OAuthUtils.isUserLoggedIn(sessionId);
-    
     if (isUserLoggedIn) {
       Userinfo userInfo = OAuthUtils.getUserInfo(sessionId);
-      
       response.getWriter().println(userInfo.getName());
-
     } else {
       response.sendRedirect("/login");	
     }
