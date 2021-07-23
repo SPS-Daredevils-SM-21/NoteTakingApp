@@ -17,7 +17,7 @@ function createNoteElement(note){
     let trashSVG = document.createElement("div");
     trashSVG.innerHTML = TRASH_ICON;
     deleteElement.addEventListener("click", () => {
-        deleteNote(note.id);
+        deleteNote(note);
     });
     deleteElement.appendChild(trashSVG);
 
@@ -44,8 +44,8 @@ function getNoteInfo(note){
 
     let dateElement = document.createElement("p");
     dateElement.classList.add("Atribute");
-    dateElement.innerHTML = "<span>Date: </span>" + new Date(note.timeStamp);
-    console.log(Intl.DateTimeFormat().);
+    dateElement.innerHTML = "<span>Date: </span>" + new Date(note.timeStamp).toLocaleString();
+    //console.log(Intl.DateTimeFormat().);
 
     noteDiv.appendChild(nameElement);
     noteDiv.appendChild(textElement);
@@ -64,10 +64,11 @@ function placeNotes(){
     });
 }
 
-function deleteNote(id) {
+function deleteNote(note) {
     if(confirm("This note will be erased forever, Are you sure? \n(This action cant' be undone)")){
         const params = new URLSearchParams();
-        params.append('id', id);
+        params.append('id', note.id);
+        params.append('owner', note.userId);
         fetch('/delete-note', {method: 'POST', body: params}).then((response) => {
             location.reload();
         });
