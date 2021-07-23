@@ -26,6 +26,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
+import com.google.sps.OAuthUtils;
+import com.google.api.services.oauth2.model.Userinfo;
 
 /** Servlet responsible for creating new tasks. */
 @WebServlet("/Create")
@@ -33,23 +35,30 @@ public class NewNoteServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Sanitize user input to remove HTML tags and JavaScript.
-    String title = Jsoup.clean(request.getParameter("Name"), Whitelist.none());
-    String text = Jsoup.clean(request.getParameter("Text"), Whitelist.none());
-    long userId = 123456;
-    long timestamp = System.currentTimeMillis();
+    String sessionId = request.getSession().getId();
 
-    Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
-    KeyFactory keyFactory = datastore.newKeyFactory().setKind("Note");
-    FullEntity taskEntity =
-        Entity.newBuilder(keyFactory.newKey())
-            .set("title", title)
-            .set("text", text)
-            .set("userID", userId)
-            .set("timestamp", timestamp)
-            .build();
-    datastore.put(taskEntity);
+    if(OAuthUtils.isUserLoggedIn(sessionId)){
+      // Sanitize user input to remove HTML tags and JavaScript.
+      String title = Jsoup.clean(request.getParameter("Name"), Whitelist.none());
+      String text = Jsoup.clean(request.getParameter("Text"), Whitelist.none());
+      Userinfo userInfo = OAuthUtils.getUserInfo(sessionId);
+      String userId = userInfo.getId();
+      long timestamp = System.currentTimeMillis();
 
-    response.sendRedirect("/Notes.html");
+      Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
+      KeyFactory keyFactory = datastore.newKeyFactory().setKind("Note");
+      FullEntity taskEntity =
+          Entity.newBuilder(keyFactory.newKey())
+              .set("title", title)
+              .set("text", text)
+              .set("userID", userId)
+              .set("timestamp", timestamp)
+              .build();
+      datastore.put(taskEntity);
+
+      response.sendRedirect("/Notes.html");
+    }else{
+      response.sendRedirect("login");
+    }
   }
 }
