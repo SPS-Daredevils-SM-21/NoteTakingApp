@@ -23,6 +23,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.google.sps.OAuthUtils;
+import com.google.api.services.oauth2.model.Userinfo;
 
 /** Servlet responsible for deleting tasks. */
 @WebServlet("/delete-note")
@@ -30,10 +32,27 @@ public class DeleteNoteServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    long id = Long.parseLong(request.getParameter("id"));
-    Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
-    KeyFactory keyFactory = datastore.newKeyFactory().setKind("Note");
-    Key taskEntityKey = keyFactory.newKey(id);
-    datastore.delete(taskEntityKey);
+    String sessionId = request.getSession().getId();
+
+    if(OAuthUtils.isUserLoggedIn(sessionId)){
+      Userinfo userInfo = OAuthUtils.getUserInfo(sessionId);
+      String userId = userInfo.getId();
+
+      long id = Long.parseLong(request.getParameter("id"));
+      String owner = request.getParameter("owner");
+
+      if(userId.equals(owner)){
+        Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
+        KeyFactory keyFactory = datastore.newKeyFactory().setKind("Note");
+        Key taskEntityKey = keyFactory.newKey(id);
+        datastore.delete(taskEntityKey);
+      }else{
+        response.sendError(403);
+        System.out.println("Didn't Errase");
+      }
+      
+    }else{
+      response.sendRedirect("/login");
+    }
   }
 }
