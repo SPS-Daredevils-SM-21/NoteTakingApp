@@ -20,10 +20,10 @@ public final class Note {
   private final long id;
   private final String title;
   private final String text;
-  private final long userId;
+  private final String userId;
   private final long timeStamp;
 
-  public Note(long id, String title, String text, long userId, long timeStamp) {
+  public Note(long id, String title, String text, String userId, long timeStamp) {
     this.id = id;
     this.title = title;
     this.text = text;
