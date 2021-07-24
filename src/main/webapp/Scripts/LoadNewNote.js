@@ -14,6 +14,7 @@ function LoadNewNoteForm() {
   nameInput.name = "Name";
   nameInput.id = "NoteName";
   nameInput.placeholder = "Enter Note Name";
+  nameInput.required = true;
 
   let textLabel = document.createElement("label");
   textLabel.for = "Text";
@@ -22,6 +23,7 @@ function LoadNewNoteForm() {
   let noteText = document.createElement("textarea");
   noteText.name = "Text";
   noteText.id = "NoteText";
+  noteText.required = true;
 
   let rightSpanButton = document.createElement("span");
   rightSpanButton.classList.add("MoveRight");
