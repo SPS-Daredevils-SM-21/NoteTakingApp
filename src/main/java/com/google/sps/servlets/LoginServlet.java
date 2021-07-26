@@ -27,7 +27,6 @@ public class LoginServlet extends AbstractAuthorizationCodeServlet {
   protected String getRedirectUri(HttpServletRequest request) {
     GenericUrl url = new GenericUrl(request.getRequestURL().toString());
     url.setRawPath("/login-callback");
-    System.out.println(url);
     return url.build();
   }
 }

@@ -22,6 +22,8 @@ import com.google.cloud.datastore.QueryResults;
 import com.google.cloud.datastore.StructuredQuery.OrderBy;
 import com.google.cloud.datastore.StructuredQuery.PropertyFilter;
 import com.google.gson.Gson;
+import com.google.sps.OAuthUtils;
+import com.google.api.services.oauth2.model.Userinfo;
 import com.google.sps.data.Note;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,31 +39,39 @@ public class ListNotesServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    long userId = 123456;
-    Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
-    Query<Entity> query =
-        Query.newEntityQueryBuilder().setKind("Note")
-        .setFilter(PropertyFilter.eq("userID", 123456))
-        .setOrderBy(OrderBy.desc("timestamp")) //need to create a Index to work
-        .build();
-    QueryResults<Entity> results = datastore.run(query);
+    String sessionId = request.getSession().getId();
 
-    List<Note> notes = new ArrayList<>();
-    while (results.hasNext()) {
-      Entity entity = results.next();
+    if(OAuthUtils.isUserLoggedIn(sessionId)){
+      Userinfo userInfo = OAuthUtils.getUserInfo(sessionId);
+      String userId = userInfo.getId();
+      Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
+      Query<Entity> query =
+          Query.newEntityQueryBuilder().setKind("Note")
+          .setFilter(PropertyFilter.eq("userID", userId))
+          .setOrderBy(OrderBy.desc("timestamp"))
+          .build();
+      QueryResults<Entity> results = datastore.run(query);
 
-      long id = entity.getKey().getId();
-      String title = entity.getString("title");
-      String text = entity.getString("text");
-      long timeStamp = entity.getLong("timestamp");
+      List<Note> notes = new ArrayList<>();
+      while (results.hasNext()) {
+        Entity entity = results.next();
 
-      Note note = new Note(id, title, text, userId, timeStamp);
-      notes.add(note);
+        long id = entity.getKey().getId();
+        String title = entity.getString("title");
+        String text = entity.getString("text");
+        long timeStamp = entity.getLong("timestamp");
+
+        Note note = new Note(id, title, text, userId, timeStamp);
+        notes.add(note);
+      }
+
+      Gson gson = new Gson();
+
+      response.setContentType("application/json;");
+      response.getWriter().println(gson.toJson(notes));
+    }else{
+      response.sendRedirect("/login");
     }
-
-    Gson gson = new Gson();
-
-    response.setContentType("application/json;");
-    response.getWriter().println(gson.toJson(notes));
+    
   }
 }

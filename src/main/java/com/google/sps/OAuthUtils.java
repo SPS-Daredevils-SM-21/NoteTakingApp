@@ -36,7 +36,7 @@ public class OAuthUtils {
   public static boolean isUserLoggedIn(String sessionId) {
     try{
       Credential credential = newFlow().loadCredential(sessionId);
-	    return credential != null;
+	      return credential != null;
     } catch(IOException e){
       // Error getting login status
       return false;
@@ -44,7 +44,7 @@ public class OAuthUtils {
   }
 
   public static Userinfo getUserInfo(String sessionId) throws IOException {
-    String appName = System.getenv("APP_NAME");
+    String appName = System.getenv("NoteTaking App");
     Credential credential = newFlow().loadCredential(sessionId);
     Oauth2 oauth2Client =
         new Oauth2.Builder(HTTP_TRANSPORT, JacksonFactory.getDefaultInstance(), credential)

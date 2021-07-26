@@ -24,11 +24,10 @@ public class LoginCallbackServlet extends AbstractAuthorizationCodeCallbackServl
   protected String getRedirectUri(final HttpServletRequest request) {
         final GenericUrl url = new GenericUrl(request.getRequestURL().toString());
         url.setRawPath("/login-callback");
-        System.out.println(url);
-        // return url.build();
+        return url.build();
 
         // The return is hard-coded until we find the best solution cloudshell dev 
-        return "https://8080-cs-1096873526294-default.cs-us-central1-pits.cloudshell.dev/login-callback";
+        //return "https://8080-cs-1096873526294-default.cs-us-central1-pits.cloudshell.dev/login-callback";
     }
 
     @Override
@@ -38,8 +37,8 @@ public class LoginCallbackServlet extends AbstractAuthorizationCodeCallbackServl
 
     @Override
     protected void onSuccess(final HttpServletRequest request, final HttpServletResponse response,
-            final Credential credential) throws IOException {
-        response.sendRedirect("/profile");
+        final Credential credential) throws IOException {
+          response.sendRedirect("/Notes.html");
     }
 
     @Override
