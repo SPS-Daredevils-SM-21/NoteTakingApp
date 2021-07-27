@@ -1,9 +1,10 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: 'Montserrat', sans-serif;
 }
 .wrapper{
-    width: 1170 px;
+    width: auto;
     margin: auto;
 }
 header{
@@ -14,10 +15,12 @@ header{
     position: relative;
 }
 .nav-area{
-    float: end;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    height: 100px;
     list-style: none;
-    margin-top: 30px;
-    margin-right: 600px;
+    background-color: #333147;
 }
 .nav-area li{
     padding-left: 30px;
@@ -25,14 +28,17 @@ header{
     display: inline-block;
 }
 .nav-area li a{
-    color: #fff;
+    color: black;
     text-decoration: none;
-    font-family: poppins;
+    font-weight: 700;
     font-size: 20px;
+    background-color: #CA0088;
+    border-radius: 20px;
+    padding: 10px 20px;
 }
 .nav-area li a:hover{
-    background-color: #333;
-    color: #fff;
+    background-color: #FFBF3F;
+    color: black;
 }
 .logo img{
     width: 100px;
@@ -41,8 +47,8 @@ header{
 }
 .welcome-text{
     position: absolute;
-    width: 600px;
-    height: 300px;
+    width: auto;
+    height: auto;
     margin: 20% 30%;
     text-align: center;   
 }
@@ -63,11 +69,29 @@ header{
     margin-top: 20px;
     display: inline-block;
     color: #fff;
+    background-color: #333147;
 
+}
+
+.logo{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 99;
 }
 
 .welcome-text a:hover{
     background: #fff;
     color: #333;
     
+}
+
+#About{
+    background-color: #333147;
+    color: #fff;
+    font-size: 40px;
+    padding: 30px 30px;
+}
+.br{
+    margin-top: 15px;
 }
