@@ -28,6 +28,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 import com.google.sps.OAuthUtils;
 import com.google.api.services.oauth2.model.Userinfo;
+import com.google.cloud.datastore.StringValue;
 
 /** Servlet responsible for creating new tasks. */
 @WebServlet("/Create")
@@ -50,7 +51,7 @@ public class NewNoteServlet extends HttpServlet {
       FullEntity taskEntity =
           Entity.newBuilder(keyFactory.newKey())
               .set("title", title)
-              .set("text", text)
+              .set("text", StringValue.newBuilder(text).setExcludeFromIndexes(true).build())
               .set("userID", userId)
               .set("timestamp", timestamp)
               .build();
